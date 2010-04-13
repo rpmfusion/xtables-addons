@@ -1,0 +1,28 @@
+# Unload modules on restart and stop
+#   Value: yes|no,  default: yes
+# This option has to be 'yes' to get to a sane state for an ipset
+# restart or stop. Only set to 'no' if there are problems unloading ipset
+# modules.
+IPSET_MODULES_UNLOAD="yes"
+
+# Save current ipset rules on stop.
+#   Value: yes|no,  default: no
+# Saves all ipset rules to /etc/sysconfig/ipset if ipset gets stopped
+# (e.g. on system shutdown).
+IPSET_SAVE_ON_STOP="no"
+
+# Save current ipset rules on restart.
+#   Value: yes|no,  default: no
+# Saves all ipset rules to /etc/sysconfig/ipset if ipset gets
+# restarted.
+IPSET_SAVE_ON_RESTART="no"
+
+# Numeric status output
+#   Value: yes|no,  default: yes
+# Print IP addresses and port numbers in numeric format in the status output.
+IPSET_STATUS_NUMERIC="yes"
+
+# Sorted status output
+#   Value: yes|no,  default: yes
+# List sorted entries in the status output.
+IPSET_STATUS_SORTED="yes"
