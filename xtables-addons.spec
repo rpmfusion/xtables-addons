@@ -1,7 +1,7 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
 Version:	1.24
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.c which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
@@ -105,5 +105,8 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Sun Apr 25 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.24-2
+- rebuilt
+
 * Thu Mar 18 2010 Chen Lei <supercyper@163.com> - 1.24-1
 - initial rpm build
