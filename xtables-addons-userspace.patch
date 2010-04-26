@@ -1,5 +1,6 @@
---- _kmod_build_2.6.32.9-70.fc12.i686/configure.ac	2010-03-17 09:50:23.000000000 +0800
-+++ xtables-addons-1.24/configure.ac	2010-03-18 15:35:01.938461245 +0800
+diff -urP xtables-addons-1.25.org/configure.ac xtables-addons-1.25/configure.ac
+--- xtables-addons-1.25.org/configure.ac	2010-04-26 20:12:03.000000000 +0800
++++ xtables-addons-1.25/configure.ac	2010-04-26 23:06:29.800752564 +0800
 @@ -9,17 +9,6 @@
  AC_DISABLE_STATIC
  AC_PROG_LIBTOOL
@@ -18,7 +19,7 @@
  
  AC_ARG_WITH([xtlibdir],
  	AS_HELP_STRING([--with-xtlibdir=PATH],
-@@ -37,42 +26,9 @@
+@@ -37,42 +26,8 @@
  	-Winline -pipe -DXTABLES_LIBDIR=\\\"\${xtlibdir}\\\" \
  	-I\${XA_TOPSRCDIR}/include";
  
@@ -55,26 +56,16 @@
 -	echo "ERROR: That kernel version is not supported. Please see INSTALL for minimum configuration.";
 -	exit 1;
 -fi;
-+
  
  AC_SUBST([regular_CFLAGS])
 -AC_SUBST([kbuilddir])
  AC_SUBST([xtlibdir])
  AC_CONFIG_FILES([Makefile Makefile.iptrules Makefile.mans
  	extensions/Makefile extensions/ACCOUNT/Makefile
---- _kmod_build_2.6.32.9-70.fc12.i686/Makefile.am	2010-03-17 09:50:23.000000000 +0800
-+++ xtables-addons-1.24/Makefile.am	2010-03-18 15:42:33.261210915 +0800
-@@ -12,7 +12,6 @@
- 	${MAKE} -f Makefile.mans all;
- 
- install-exec-hook:
--	depmod -a || :;
- 
- config.status: Makefile.iptrules.in
-
---- _kmod_build_2.6.32.9-70.fc12.i686/extensions/Makefile.am	2010-03-17 09:50:23.000000000 +0800
-+++ xtables-addons-1.24/extensions/Makefile.am	2010-03-18 15:39:05.484210946 +0800
-@@ -1,24 +1,5 @@
+diff -urP xtables-addons-1.25.org/extensions/Makefile.am xtables-addons-1.25/extensions/Makefile.am
+--- xtables-addons-1.25.org/extensions/Makefile.am	2010-04-26 20:12:03.000000000 +0800
++++ xtables-addons-1.25/extensions/Makefile.am	2010-04-26 23:07:25.951752743 +0800
+@@ -1,26 +1,5 @@
  # -*- Makefile -*-
  # AUTOMAKE
  
@@ -84,6 +75,8 @@
 -_kcall = -C ${kbuilddir} M=${abs_srcdir}
 -
 -modules:
+-	@echo -n "Xtables-addons ${PACKAGE_VERSION} - Linux "
+-	@if [ -n "${kbuilddir}" ]; then ${MAKE} ${_kcall} --no-print-directory -s kernelrelease; fi;
 -	${AM_V_silent}if [ -n "${kbuilddir}" ]; then ${MAKE} ${_kcall} modules; fi;
 -
 -modules_install:
@@ -99,3 +92,14 @@
 -clean-local: clean_modules
  
  include ../Makefile.extra
+diff -urP xtables-addons-1.25.org/Makefile.am xtables-addons-1.25/Makefile.am
+--- xtables-addons-1.25.org/Makefile.am	2010-04-26 20:12:03.000000000 +0800
++++ xtables-addons-1.25/Makefile.am	2010-04-26 23:07:43.614752996 +0800
+@@ -12,7 +12,6 @@
+ 	${MAKE} -f Makefile.mans all;
+ 
+ install-exec-hook:
+-	depmod -a || :;
+ 
+ config.status: Makefile.iptrules.in
+ 
