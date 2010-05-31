@@ -1,12 +1,12 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	1.26
+Version:	1.27
 Release:	1%{?dist}
-# The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.c which is LGPLv2
+# The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
 URL:		http://xtables-addons.sourceforge.net
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1:	ipset.init
 Source2:	ipset-config
 # patch to build userspace part only
@@ -21,6 +21,9 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
+Provides:	ipset = 4.2
+%{?_isa:Provides: ipset%{?_isa} = 4.2}
+Obsoletes:	%{name}-devel < 1.27-1
 
 %description
 Xtables-addons provides extra modules for iptables not present in the kernel,
@@ -31,15 +34,6 @@ This package provides the userspace libraries for iptables to use extensions
 in the %{name}-kmod package. You must also install the 
 %{name}-kmod package.
 
-%package devel
-Summary:		Development files for %{name}
-Group:			Development/Libraries
-Requires:		%{name} = %{version}-%{release}
-
-%description devel
-The %{name}-devel package contains libraries and header files for 
-developing applications that use %{name}. 
-
 %prep
 %setup -q 
 %patch0 -p1
@@ -47,8 +41,7 @@ developing applications that use %{name}.
 %build
 ./autogen.sh
 %configure -with-xtlibdir=/%{_lib}/xtables
-make %{?_smp_mflags}
-
+make V=1 %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
@@ -58,12 +51,8 @@ make DESTDIR=%{buildroot} install
 install -d %{buildroot}/sbin
 mv %{buildroot}/%{_sbindir}/ipset %{buildroot}/sbin
 
-# remove la file(s)
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
-# install header files
-install -d %{buildroot}%{_includedir}
-install -pm 0644 extensions/ACCOUNT/*.h %{buildroot}%{_includedir}
+# There is no -devel package. So no need for these files
+rm -f %{buildroot}%{_libdir}/*.{la,so}
 
 # install init scripts and configuration files
 install -D -pm 0755 %{SOURCE1} %{buildroot}%{_initddir}/ipset
@@ -97,14 +86,12 @@ rm -rf %{buildroot}
 %{_libdir}/*.so.*
 /sbin/ipset 
 %{_sbindir}/*
-%{_mandir}/man8/*
-
-%files devel
-%defattr(-,root,root,-)
-%{_libdir}/*.so
-%{_includedir}/*
+%{_mandir}/man?/*
 
 %changelog
+* Mon May 31 2010 Chen Lei <supercyper@163.com> - 1.27-1
+- update to 1.27
+
 * Sun May 02 2010 Chen Lei <supercyper@163.com> - 1.26-1
 - update to 1.26
 
