@@ -61,8 +61,9 @@ diff -urP xtables-addons-1.27.org/configure.ac xtables-addons-1.27/configure.ac
  AC_SUBST([regular_CFLAGS])
 -AC_SUBST([kbuilddir])
  AC_SUBST([xtlibdir])
- AC_CONFIG_FILES([Makefile Makefile.iptrules Makefile.mans
- 	extensions/Makefile extensions/ACCOUNT/Makefile
+ AC_CONFIG_FILES([Makefile Makefile.iptrules Makefile.mans geoip/Makefile
+	extensions/Makefile extensions/ACCOUNT/Makefile
+	extensions/ipset/Makefile extensions/pknock/Makefile])
 diff -urP xtables-addons-1.27.org/extensions/Makefile.am xtables-addons-1.27/extensions/Makefile.am
 --- xtables-addons-1.27.org/extensions/Makefile.am	2010-05-31 09:47:58.363361712 +0800
 +++ xtables-addons-1.27/extensions/Makefile.am	2010-05-31 10:02:08.845363738 +0800
