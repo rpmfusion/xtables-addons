@@ -1,6 +1,6 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	1.27
+Version:	1.28
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
@@ -38,14 +38,26 @@ in the %{name}-kmod package. You must also install the
 %setup -q 
 %patch0 -p1
 
+
 %build
 ./autogen.sh
 %configure -with-xtlibdir=/%{_lib}/xtables
+if [ -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
+	sed -i 's/build_CHECKSUM=m/build_CHECKSUM=/' mconfig
+fi
+if [ -e /%{_lib}/xtables/libxt_TEE.so ]; then
+	sed -i 's/build_TEE=m/build_TEE=/' mconfig
+fi
 make V=1 %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
+
+# We add xt_geoip database scripts manually
+rm -rf %{buildroot}%{_libexecdir}
+rm -f geoip/{Makefile*,.gitignore}
+chmod 0644 geoip/*
 
 # move ipset to /sbin
 install -d %{buildroot}/sbin
@@ -79,7 +91,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README doc/* 
+%doc LICENSE README doc/* geoip
 %attr(0755,root,root) %{_initddir}/*
 %config(noreplace) %{_sysconfdir}/sysconfig/*
 /%{_lib}/xtables/*.so
@@ -89,6 +101,12 @@ rm -rf %{buildroot}
 %{_mandir}/man?/*
 
 %changelog
+* Sun Jul 25 2010 Chen Lei <supercyper@163.com> - 1.28-1
+- update to 1.28
+
+* Mon Jun 28 2010 Chen Lei <supercyper@163.com> - 1.27-2
+- rebuild for kernel 2.6.35
+
 * Mon May 31 2010 Chen Lei <supercyper@163.com> - 1.27-1
 - update to 1.27
 
