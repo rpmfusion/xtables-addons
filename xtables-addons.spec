@@ -1,6 +1,6 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	1.28
+Version:	1.30
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
@@ -11,7 +11,6 @@ Source1:	ipset.init
 Source2:	ipset-config
 # patch to build userspace part only
 Patch0:		%{name}-userspace.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	iptables-devel
 BuildRequires:	autoconf automake libtool
 Provides:	%{name}-kmod-common = %{version}
@@ -21,8 +20,8 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
-Provides:	ipset = 4.2
-%{?_isa:Provides: ipset%{?_isa} = 4.2}
+Provides:	ipset = 4.4
+%{?_isa:Provides: ipset%{?_isa} = 4.4}
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
@@ -42,16 +41,15 @@ in the %{name}-kmod package. You must also install the
 %build
 ./autogen.sh
 %configure -with-xtlibdir=/%{_lib}/xtables
-if [ -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
-	sed -i 's/build_CHECKSUM=m/build_CHECKSUM=/' mconfig
+if [ ! -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
+	sed -i 's/build_CHECKSUM=/build_CHECKSUM=m/' mconfig
 fi
-if [ -e /%{_lib}/xtables/libxt_TEE.so ]; then
-	sed -i 's/build_TEE=m/build_TEE=/' mconfig
+if [ ! -e /%{_lib}/xtables/libxt_TEE.so ]; then
+	sed -i 's/build_TEE=/build_TEE=m/' mconfig
 fi
 make V=1 %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 
 # We add xt_geoip database scripts manually
@@ -101,6 +99,9 @@ rm -rf %{buildroot}
 %{_mandir}/man?/*
 
 %changelog
+* Wed Oct 27 2010 Chen Lei <supercyper@163.com> - 1.30-1
+- update to 1.30
+
 * Sun Jul 25 2010 Chen Lei <supercyper@163.com> - 1.28-1
 - update to 1.28
 

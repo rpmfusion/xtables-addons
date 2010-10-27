@@ -1,6 +1,6 @@
-diff -urP xtables-addons-1.27.org/configure.ac xtables-addons-1.27/configure.ac
---- xtables-addons-1.27.org/configure.ac	2010-05-31 09:47:58.385362271 +0800
-+++ xtables-addons-1.27/configure.ac	2010-05-31 10:01:32.727112933 +0800
+diff -Naur xtables-addons-1.30.orig/configure.ac xtables-addons-1.30/configure.ac
+--- xtables-addons-1.30.orig/configure.ac	2010-10-02 06:41:47.000000000 +0800
++++ xtables-addons-1.30/configure.ac	2010-10-27 17:54:14.962186249 +0800
 @@ -9,18 +9,6 @@
  AC_DISABLE_STATIC
  AC_PROG_LIBTOOL
@@ -20,7 +20,7 @@ diff -urP xtables-addons-1.27.org/configure.ac xtables-addons-1.27/configure.ac
  AC_ARG_WITH([xtlibdir],
  	AS_HELP_STRING([--with-xtlibdir=PATH],
  	[Path where to install Xtables extensions [[LIBEXECDIR/xtables]]]),
-@@ -37,42 +25,7 @@
+@@ -37,42 +25,8 @@
  	-Winline -pipe -DXTABLES_LIBDIR=\\\"\${xtlibdir}\\\" \
  	-I\${XA_TOPSRCDIR}/include";
  
@@ -49,7 +49,7 @@ diff -urP xtables-addons-1.27.org/configure.ac xtables-addons-1.27/configure.ac
 -	fi;
 -fi;
 -echo "Found kernel version $kmajor.$kminor.$kmicro.$kstable in $kbuilddir";
--if test "$kmajor" -gt 2 -o "$kminor" -gt 6 -o "$kmicro" -gt 35; then
+-if test "$kmajor" -gt 2 -o "$kminor" -gt 6 -o "$kmicro" -gt 36; then
 -	echo "WARNING: You are trying a newer kernel. Results may vary. :-)";
 -elif test \( "$kmajor" -lt 2 -o "$kminor" -lt 6 -o "$kmicro" -lt 17 \) -o \
 -    \( "$kmajor" -eq 2 -a "$kminor" -eq 6 -a "$kmicro" -eq 18 -a \
@@ -57,16 +57,15 @@ diff -urP xtables-addons-1.27.org/configure.ac xtables-addons-1.27/configure.ac
 -	echo "ERROR: That kernel version is not supported. Please see INSTALL for minimum configuration.";
 -	exit 1;
 -fi;
--
+ 
  AC_SUBST([regular_CFLAGS])
 -AC_SUBST([kbuilddir])
  AC_SUBST([xtlibdir])
  AC_CONFIG_FILES([Makefile Makefile.iptrules Makefile.mans geoip/Makefile
-	extensions/Makefile extensions/ACCOUNT/Makefile
-	extensions/ipset/Makefile extensions/pknock/Makefile])
-diff -urP xtables-addons-1.27.org/extensions/Makefile.am xtables-addons-1.27/extensions/Makefile.am
---- xtables-addons-1.27.org/extensions/Makefile.am	2010-05-31 09:47:58.363361712 +0800
-+++ xtables-addons-1.27/extensions/Makefile.am	2010-05-31 10:02:08.845363738 +0800
+ 	extensions/Makefile extensions/ACCOUNT/Makefile
+diff -Naur xtables-addons-1.30.orig/extensions/Makefile.am xtables-addons-1.30/extensions/Makefile.am
+--- xtables-addons-1.30.orig/extensions/Makefile.am	2010-10-02 06:41:47.000000000 +0800
++++ xtables-addons-1.30/extensions/Makefile.am	2010-10-27 17:54:53.010183177 +0800
 @@ -1,26 +1,4 @@
  # -*- Makefile -*-
  # AUTOMAKE
@@ -94,9 +93,9 @@ diff -urP xtables-addons-1.27.org/extensions/Makefile.am xtables-addons-1.27/ext
 -clean-local: clean_modules
 -
  include ../Makefile.extra
-diff -urP xtables-addons-1.27.org/Makefile.am xtables-addons-1.27/Makefile.am
---- xtables-addons-1.27.org/Makefile.am	2010-05-31 09:47:58.385362271 +0800
-+++ xtables-addons-1.27/Makefile.am	2010-05-31 09:52:19.632360246 +0800
+diff -Naur xtables-addons-1.30.orig/Makefile.am xtables-addons-1.30/Makefile.am
+--- xtables-addons-1.30.orig/Makefile.am	2010-10-02 06:41:47.000000000 +0800
++++ xtables-addons-1.30/Makefile.am	2010-10-27 17:55:29.350434539 +0800
 @@ -12,7 +12,6 @@
  	${MAKE} -f Makefile.mans all;
  
