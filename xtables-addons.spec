@@ -13,6 +13,7 @@ Source2:	ipset-config
 Patch0:		%{name}-userspace.patch
 BuildRequires:	iptables-devel >= 1.4.5
 BuildRequires:	autoconf automake libtool
+BuildRequires:  libmnl-devel
 Provides:	%{name}-kmod-common = %{version}
 Requires:	%{name}-kmod >= %{version}
 Requires(post): chkconfig
@@ -20,8 +21,8 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
-Provides:	ipset = 6
-%{?_isa:Provides: ipset%{?_isa} = 6}
+Provides:	ipset = 4.4
+%{?_isa:Provides: ipset%{?_isa} = 4.4}
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
@@ -34,13 +35,12 @@ in the %{name}-kmod package. You must also install the
 %{name}-kmod package.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q 
 
 
 %build
 ./autogen.sh
-%configure -with-xtlibdir=/%{_lib}/xtables
+%configure -with-xtlibdir=/%{_lib}/xtables --without-kbuild
 if [ ! -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
 	sed -i 's/build_CHECKSUM=/build_CHECKSUM=m/' mconfig
 fi
