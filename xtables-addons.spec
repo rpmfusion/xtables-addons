@@ -1,6 +1,6 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	1.39
+Version:	1.41
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
@@ -9,8 +9,6 @@ URL:		http://xtables-addons.sourceforge.net
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1:	ipset.init
 Source2:	ipset-config
-# patch to build userspace part only
-Patch0:		%{name}-userspace.patch
 BuildRequires:	iptables-devel >= 1.4.5
 BuildRequires:	autoconf automake libtool
 BuildRequires:  libmnl-devel
@@ -21,8 +19,8 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
-Provides:	ipset = 4.4
-%{?_isa:Provides: ipset%{?_isa} = 4.4}
+Provides:	ipset = 6
+%{?_isa:Provides: ipset%{?_isa} = 6}
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
@@ -99,6 +97,9 @@ rm -rf %{buildroot}
 %{_mandir}/man?/*
 
 %changelog
+* Tue Jan 24 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.41-1
+- Update to 1.41
+
 * Thu Nov 17 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.39-1
 - Update to 1.39
 
