@@ -19,8 +19,8 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
-Provides:	ipset = 6
-%{?_isa:Provides: ipset%{?_isa} = 6}
+Provides:	ipset = 6.10
+%{?_isa:Provides: ipset%{?_isa} = 6.10}
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
@@ -33,18 +33,19 @@ in the %{name}-kmod package. You must also install the
 %{name}-kmod package.
 
 %prep
-%setup -q 
-
-
-%build
+%setup -q
 ./autogen.sh
-%configure -with-xtlibdir=/%{_lib}/xtables --without-kbuild
 if [ ! -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
 	sed -i 's/build_CHECKSUM=/build_CHECKSUM=m/' mconfig
 fi
 if [ ! -e /%{_lib}/xtables/libxt_TEE.so ]; then
 	sed -i 's/build_TEE=/build_TEE=m/' mconfig
 fi
+sed -i 's/build_ipset6=/build_ipset6=m/' mconfig
+
+%build
+%configure --without-kbuild
+
 make V=1 %{?_smp_mflags}
 
 %install
