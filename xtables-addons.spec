@@ -18,6 +18,7 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
+Requires: ipset >= 6.11
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
@@ -92,6 +93,8 @@ rm -rf %{buildroot}
 %changelog
 * Tue Jun 05 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-2
 - Fix for UsrMove - rfbz#2360
+- Fix Conflict with ipset - rfbz#2201
+- Add Requires ipset >= 6.11 - rfbz#2226
 
 * Thu Apr 12 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-1
 - Update to 1.42
