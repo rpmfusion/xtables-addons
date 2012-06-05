@@ -1,7 +1,7 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
 Version:	1.42
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
@@ -56,10 +56,6 @@ rm -rf %{buildroot}%{_libexecdir}
 rm -f geoip/{Makefile*,.gitignore}
 chmod 0644 geoip/*
 
-# move ipset to /sbin
-install -d %{buildroot}/sbin
-mv %{buildroot}/%{_sbindir}/ipset %{buildroot}/sbin
-
 # There is no -devel package. So no need for these files
 rm -f %{buildroot}%{_libdir}/*.{la,so}
 
@@ -91,13 +87,16 @@ rm -rf %{buildroot}
 %doc LICENSE README doc/* geoip
 %attr(0755,root,root) %{_initddir}/*
 %config(noreplace) %{_sysconfdir}/sysconfig/*
-/%{_lib}/xtables/*.so
+%{_libdir}/xtables/*.so
 %{_libdir}/*.so.*
-/sbin/ipset 
+%{_sbindir}/ipset
 %{_sbindir}/*
 %{_mandir}/man?/*
 
 %changelog
+* Tue Jun 05 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-2
+- Fix for UsrMove - rfbz#2360
+
 * Thu Apr 12 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-1
 - Update to 1.42
 
