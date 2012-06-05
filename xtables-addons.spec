@@ -11,7 +11,6 @@ Source1:	ipset.init
 Source2:	ipset-config
 BuildRequires:	iptables-devel >= 1.4.5
 BuildRequires:	autoconf automake libtool
-BuildRequires:  libmnl-devel
 Provides:	%{name}-kmod-common = %{version}
 Requires:	%{name}-kmod >= %{version}
 Requires(post): chkconfig
@@ -19,8 +18,6 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
-Provides:	ipset = 6.10
-%{?_isa:Provides: ipset%{?_isa} = 6.10}
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
@@ -89,8 +86,7 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/sysconfig/*
 %{_libdir}/xtables/*.so
 %{_libdir}/*.so.*
-%{_sbindir}/ipset
-%{_sbindir}/*
+%{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
 %changelog
