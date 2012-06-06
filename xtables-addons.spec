@@ -85,8 +85,8 @@ rm -rf %{buildroot}
 %doc LICENSE README doc/* geoip
 %attr(0755,root,root) %{_initddir}/*
 %config(noreplace) %{_sysconfdir}/sysconfig/*
-%{_libdir}/xtables/*.so
-/%{_lib}/*.so.*
+/%{_lib}/xtables/*.so
+%{_libdir}/*.so.*
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
