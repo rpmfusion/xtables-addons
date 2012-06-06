@@ -86,7 +86,7 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_initddir}/*
 %config(noreplace) %{_sysconfdir}/sysconfig/*
 %{_libdir}/xtables/*.so
-%{_libdir}/*.so.*
+/%{_lib}/*.so.*
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
@@ -95,6 +95,7 @@ rm -rf %{buildroot}
 - Fix for UsrMove - rfbz#2360
 - Fix Conflict with ipset - rfbz#2201
 - Add Requires ipset >= 6.11 - rfbz#2226
+- Back to %%_lib for F-16
 
 * Thu Apr 12 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-1
 - Update to 1.42
