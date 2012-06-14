@@ -25,7 +25,7 @@ IPSET_DATA=/etc/sysconfig/$IPSET
 IPSET_CONFIG=/etc/sysconfig/${IPSET}-config
 VAR_SUBSYS_IPSET=/var/lock/subsys/$IPSET
 
-if [ ! -x /sbin/$IPSET ]; then
+if [ ! -x /usr/sbin/$IPSET ]; then
     echo -n $"${IPSET}: /sbin/$IPSET does not exist."; warning; echo
     exit 5
 fi
