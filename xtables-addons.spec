@@ -18,7 +18,7 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
-Requires: ipset >= 6.13
+Requires: ipset >= 6.11
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
