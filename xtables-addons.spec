@@ -1,7 +1,7 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	1.42
-Release:	3%{?dist}
+Version:	1.45
+Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
@@ -18,7 +18,7 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
-Requires: ipset >= 6.11
+Requires: ipset >= 6.13
 Obsoletes:	%{name}-devel < 1.27-1
 
 %description
@@ -91,6 +91,9 @@ rm -rf %{buildroot}
 %{_mandir}/man?/*
 
 %changelog
+* Tue Jul 31 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.45-1
+- Update to 1.45
+
 * Thu Jun 14 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-3
 - Fix ipset path in F-16 and later
 
