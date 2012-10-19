@@ -1,7 +1,7 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	1.42
-Release:	3%{?dist}
+Version:	1.46
+Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
@@ -85,12 +85,18 @@ rm -rf %{buildroot}
 %doc LICENSE README doc/* geoip
 %attr(0755,root,root) %{_initddir}/*
 %config(noreplace) %{_sysconfdir}/sysconfig/*
-/%{_lib}/xtables/*.so
+%{_libdir}/xtables/*.so
 %{_libdir}/*.so.*
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
 %changelog
+* Wed Oct 03 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.46-1
+- Update to 1.46
+
+* Tue Jul 31 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.45-1
+- Update to 1.45
+
 * Thu Jun 14 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-3
 - Fix ipset path in F-16 and later
 
@@ -98,7 +104,6 @@ rm -rf %{buildroot}
 - Fix for UsrMove - rfbz#2360
 - Fix Conflict with ipset - rfbz#2201
 - Add Requires ipset >= 6.11 - rfbz#2226
-- Back to %%_lib for F-16
 
 * Thu Apr 12 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.42-1
 - Update to 1.42
