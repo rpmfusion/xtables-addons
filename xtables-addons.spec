@@ -1,12 +1,12 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	1.46
+Version:	1.47.1
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
 URL:		http://xtables-addons.sourceforge.net
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Source0:        http://dl.sourceforge.net/xtables-addons/%{version}/xtables-addons-%{version}.tar.xz
 Source1:	ipset.init
 Source2:	ipset-config
 BuildRequires:	iptables-devel >= 1.4.5
@@ -31,7 +31,7 @@ in the %{name}-kmod package. You must also install the
 %{name}-kmod package.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}
 ./autogen.sh
 if [ ! -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
 	sed -i 's/build_CHECKSUM=/build_CHECKSUM=m/' mconfig
@@ -91,6 +91,9 @@ rm -rf %{buildroot}
 %{_mandir}/man?/*
 
 %changelog
+* Thu Oct 18 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.47.1-1
+- Update to 1.47.1
+
 * Wed Oct 03 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.46-1
 - Update to 1.46
 
