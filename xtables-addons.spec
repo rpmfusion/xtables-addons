@@ -1,23 +1,16 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	2.5
+Version:	2.6
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
 URL:		http://xtables-addons.sourceforge.net
 Source0:	http://dl.sourceforge.net/xtables-addons/Xtables-addons/%{version}/xtables-addons-%{version}.tar.xz
-Source1:	ipset.init
-Source2:	ipset-config
 BuildRequires:	iptables-devel >= 1.4.5
 BuildRequires:	autoconf automake libtool
 Provides:	%{name}-kmod-common = %{version}
 Requires:	%{name}-kmod >= %{version}
-Requires(post): chkconfig
-Requires(preun): chkconfig
-# This is for /sbin/service
-Requires(preun): initscripts
-Requires(postun): initscripts
 Requires:	ipset >= 6.11
 Obsoletes:	%{name}-devel < 1.27-1
 
@@ -57,40 +50,20 @@ chmod 0644 geoip/*
 # There is no -devel package. So no need for these files
 rm -f %{buildroot}%{_libdir}/*.{la,so}
 
-# install init scripts and configuration files
-install -D -pm 0755 %{SOURCE1} %{buildroot}%{_initddir}/ipset
-install -D -pm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/ipset-config
-
-%post 
-/sbin/ldconfig
-/sbin/chkconfig --add ipset
-
-%preun
-if [ $1 = 0 ] ; then
-    /sbin/service ipset stop >/dev/null 2>&1
-    /sbin/chkconfig --del ipset
-fi
-
-%postun
-/sbin/ldconfig
-if [ "$1" -ge "1" ] ; then
-    /sbin/service ipset condrestart >/dev/null 2>&1 || :
-fi
-
-%clean
-rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root,-)
 %doc LICENSE README doc/* geoip
-%attr(0755,root,root) %{_initddir}/*
-%config(noreplace) %{_sysconfdir}/sysconfig/*
 %{_libdir}/xtables/*.so
 %{_libdir}/*.so.*
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
 %changelog
+* Tue Nov 04 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.6-1
+- Update to 2.6
+- Drop initscript (use ipset-services instead)
+- Spec file clean-up
+
 * Sat Apr 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.5-1
 - Update to 2.5
 
