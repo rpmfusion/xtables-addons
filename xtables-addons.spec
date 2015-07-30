@@ -1,6 +1,6 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	2.6
+Version:	2.7
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Thu Jul 30 2015 Nicolas Chauvet <kwizart@gmail.com> - 2.7-1
+- Update to 2.7
+
 * Tue Nov 04 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.6-1
 - Update to 2.6
 - Drop initscript (use ipset-services instead)
