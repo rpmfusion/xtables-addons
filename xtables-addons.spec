@@ -1,7 +1,7 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
 Version:	2.11
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Thu Sep 08 2016 Sérgio Basto <sergio@serjux.com> - 2.11-2
+- Rebuild for iptables soname bump
+
 * Wed Jun 22 2016 Nicolas Chauvet <kwizart@gmail.com> - 2.11-1
 - Update to 2.11
 
