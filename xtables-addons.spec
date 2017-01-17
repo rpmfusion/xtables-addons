@@ -1,12 +1,12 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	2.11
-Release:	2%{?dist}
+Version:	2.12
+Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
 URL:		http://xtables-addons.sourceforge.net
-Source0:	http://dl.sourceforge.net/xtables-addons/Xtables-addons/%{version}/xtables-addons-%{version}.tar.xz
+Source0:	http://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
 BuildRequires:	iptables-devel >= 1.4.5
 BuildRequires:	autoconf automake libtool
 Provides:	%{name}-kmod-common = %{version}
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Tue Jan 17 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.12-1
+- Update to 2.12
+
 * Thu Sep 08 2016 Sérgio Basto <sergio@serjux.com> - 2.11-2
 - Rebuild for iptables soname bump
 
