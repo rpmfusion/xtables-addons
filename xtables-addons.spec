@@ -1,12 +1,14 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	2.12
-Release:	3%{?dist}
+Version:	2.13
+Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
 URL:		http://xtables-addons.sourceforge.net
 Source0:	http://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
+
+BuildRequires:	gcc
 BuildRequires:	iptables-devel >= 1.4.5
 BuildRequires:	autoconf automake libtool
 Provides:	%{name}-kmod-common = %{version}
@@ -37,10 +39,10 @@ sed -i 's/build_ipset6=/build_ipset6=m/' mconfig
 %build
 %configure --without-kbuild
 
-make V=1 %{?_smp_mflags}
+%make_build V=1
 
 %install
-make DESTDIR=%{buildroot} install
+%make_install
 
 # We add xt_geoip database scripts manually
 rm -rf %{buildroot}%{_libexecdir}
@@ -59,6 +61,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Mon Jul 03 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.13-1
+- Update to 2.13
+
 * Tue Mar 21 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 2.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
