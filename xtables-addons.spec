@@ -1,23 +1,18 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	2.5
+Version:	2.13
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
 URL:		http://xtables-addons.sourceforge.net
-Source0:	http://dl.sourceforge.net/xtables-addons/Xtables-addons/%{version}/xtables-addons-%{version}.tar.xz
-Source1:	ipset.init
-Source2:	ipset-config
+Source0:	http://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
+
+BuildRequires:	gcc
 BuildRequires:	iptables-devel >= 1.4.5
 BuildRequires:	autoconf automake libtool
 Provides:	%{name}-kmod-common = %{version}
 Requires:	%{name}-kmod >= %{version}
-Requires(post): chkconfig
-Requires(preun): chkconfig
-# This is for /sbin/service
-Requires(preun): initscripts
-Requires(postun): initscripts
 Requires:	ipset >= 6.11
 Obsoletes:	%{name}-devel < 1.27-1
 
@@ -33,21 +28,14 @@ in the %{name}-kmod package. You must also install the
 %prep
 %setup -q -n %{name}-%{version}
 ./autogen.sh
-if [ ! -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
-	sed -i 's/build_CHECKSUM=/build_CHECKSUM=m/' mconfig
-fi
-if [ ! -e /%{_lib}/xtables/libxt_TEE.so ]; then
-	sed -i 's/build_TEE=/build_TEE=m/' mconfig
-fi
-sed -i 's/build_ipset6=/build_ipset6=m/' mconfig
 
 %build
 %configure --without-kbuild
 
-make V=1 %{?_smp_mflags}
+%make_build V=1
 
 %install
-make DESTDIR=%{buildroot} install
+%make_install
 
 # We add xt_geoip database scripts manually
 rm -rf %{buildroot}%{_libexecdir}
@@ -57,40 +45,18 @@ chmod 0644 geoip/*
 # There is no -devel package. So no need for these files
 rm -f %{buildroot}%{_libdir}/*.{la,so}
 
-# install init scripts and configuration files
-install -D -pm 0755 %{SOURCE1} %{buildroot}%{_initddir}/ipset
-install -D -pm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/ipset-config
-
-%post 
-/sbin/ldconfig
-/sbin/chkconfig --add ipset
-
-%preun
-if [ $1 = 0 ] ; then
-    /sbin/service ipset stop >/dev/null 2>&1
-    /sbin/chkconfig --del ipset
-fi
-
-%postun
-/sbin/ldconfig
-if [ "$1" -ge "1" ] ; then
-    /sbin/service ipset condrestart >/dev/null 2>&1 || :
-fi
-
-%clean
-rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root,-)
 %doc LICENSE README doc/* geoip
-%attr(0755,root,root) %{_initddir}/*
-%config(noreplace) %{_sysconfdir}/sysconfig/*
 %{_libdir}/xtables/*.so
 %{_libdir}/*.so.*
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
 %changelog
+* Mon Jul 03 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.13-1
+- Update to 2.13
+
 * Sat Apr 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.5-1
 - Update to 2.5
 
