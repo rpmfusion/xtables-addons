@@ -28,13 +28,6 @@ in the %{name}-kmod package. You must also install the
 %prep
 %setup -q -n %{name}-%{version}
 ./autogen.sh
-if [ ! -e /%{_lib}/xtables/libxt_CHECKSUM.so ]; then
-	sed -i 's/build_CHECKSUM=/build_CHECKSUM=m/' mconfig
-fi
-if [ ! -e /%{_lib}/xtables/libxt_TEE.so ]; then
-	sed -i 's/build_TEE=/build_TEE=m/' mconfig
-fi
-sed -i 's/build_ipset6=/build_ipset6=m/' mconfig
 
 %build
 %configure --without-kbuild
