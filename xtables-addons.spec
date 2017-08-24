@@ -1,7 +1,7 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
 Version:	2.13
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
@@ -37,23 +37,23 @@ in the %{name}-kmod package. You must also install the
 %install
 %make_install
 
-# We add xt_geoip database scripts manually
-rm -rf %{buildroot}%{_libexecdir}
-rm -f geoip/{Makefile*,.gitignore}
-chmod 0644 geoip/*
-
 # There is no -devel package. So no need for these files
 rm -f %{buildroot}%{_libdir}/*.{la,so}
 
 
 %files
 %doc LICENSE README doc/* geoip
+%{_libexecdir}/xtables-addons/xt_geoip_build
+%{_libexecdir}/xtables-addons/xt_geoip_dl
 %{_libdir}/xtables/*.so
 %{_libdir}/*.so.*
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
 %changelog
+* Thu Aug 24 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.13-2
+- Distribute xt_geoip scripts
+
 * Mon Jul 03 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.13-1
 - Update to 2.13
 
