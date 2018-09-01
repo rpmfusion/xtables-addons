@@ -1,16 +1,18 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	3.0
-Release:	3%{?dist}
+Version:	3.1
+Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
 Group:		System Environment/Base
-URL:		http://xtables-addons.sourceforge.net
-Source0:	http://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
+URL:		https://xtables-addons.sourceforge.net
+Source0:	https://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
 
 BuildRequires:	gcc
 BuildRequires:	iptables-devel >= 1.4.5
-BuildRequires:	autoconf automake libtool
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 Provides:	%{name}-kmod-common = %{version}
 Requires:	%{name}-kmod >= %{version}
 Requires:	ipset >= 6.11
@@ -51,6 +53,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Sat Sep 01 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-1
+- Update to 3.1
+
 * Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.0-3
 - Rebuilt for Fedora 29 Mass Rebuild binutils issue
 
