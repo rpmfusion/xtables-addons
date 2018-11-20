@@ -1,10 +1,9 @@
 Name:		xtables-addons
 Summary:	Extensions targets and matches for iptables
-Version:	3.1
+Version:	3.2
 Release:	1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:	GPLv2 and LGPLv2
-Group:		System Environment/Base
 URL:		https://xtables-addons.sourceforge.net
 Source0:	https://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
 
@@ -16,7 +15,6 @@ BuildRequires:	libtool
 Provides:	%{name}-kmod-common = %{version}
 Requires:	%{name}-kmod >= %{version}
 Requires:	ipset >= 6.11
-Obsoletes:	%{name}-devel < 1.27-1
 
 %description
 Xtables-addons provides extra modules for iptables not present in the kernel,
@@ -28,7 +26,7 @@ in the %{name}-kmod package. You must also install the
 %{name}-kmod package.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 ./autogen.sh
 
 %build
@@ -45,14 +43,18 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 
 %files
 %doc LICENSE README doc/* geoip
-%{_libexecdir}/xtables-addons/xt_geoip_build
-%{_libexecdir}/xtables-addons/xt_geoip_dl
-%{_libdir}/xtables/*.so
+%{_libexecdir}/xtables-addons/
+%{_libdir}/xtables/
 %{_libdir}/*.so.*
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
 %changelog
+* Tue Nov 20 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.2-1
+- Update to 3.2
+- Remove Group tag
+- Fix directoy ownership
+
 * Sat Sep 01 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-1
 - Update to 3.1
 
