@@ -1,32 +1,32 @@
-Name:		xtables-addons
-Summary:	Extensions targets and matches for iptables
-Version:	3.2
-Release:	1%{?dist}
+Name:       xtables-addons
+Summary:    Extensions targets and matches for iptables
+Version:    3.3
+Release:    1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
-License:	GPLv2 and LGPLv2
-URL:		https://xtables-addons.sourceforge.net
-Source0:	https://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
+License:    GPLv2 and LGPLv2
+URL:        https://xtables-addons.sourceforge.net
+Source0:    https://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
 
-BuildRequires:	gcc
-BuildRequires:	iptables-devel >= 1.4.5
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool
-Provides:	%{name}-kmod-common = %{version}
-Requires:	%{name}-kmod >= %{version}
-Requires:	ipset >= 6.11
+BuildRequires:    gcc
+BuildRequires:    iptables-devel >= 1.4.5
+BuildRequires:    autoconf
+BuildRequires:    automake
+BuildRequires:    libtool
+Provides:         %{name}-kmod-common = %{version}
+Requires:         %{name}-kmod >= %{version}
+Requires:         ipset >= 6.11
 
 %description
 Xtables-addons provides extra modules for iptables not present in the kernel,
-and is the successor of patch-o-matic. Extensions includes new targets like 
+and is the successor of patch-o-matic. Extensions includes new targets like
 TEE, TARPIT, CHAOS, or modules like geoip, ipset, and account.
 
-This package provides the userspace libraries for iptables to use extensions 
-in the %{name}-kmod package. You must also install the 
+This package provides the userspace libraries for iptables to use extensions
+in the %{name}-kmod package. You must also install the
 %{name}-kmod package.
 
 %prep
-%setup -q
+%autosetup
 ./autogen.sh
 
 %build
@@ -50,6 +50,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Tue Apr 02 18:14:09 CET 2019 Robert-André Mauchin <zebob.m@gmail.com> - 3.3-1
+- Release 3.3
+
 * Tue Nov 20 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.2-1
 - Update to 3.2
 - Remove Group tag
@@ -83,7 +86,7 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
 * Wed Feb 15 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.12-2
-- Rebuild for iptables soname bump 
+- Rebuild for iptables soname bump
 
 * Tue Jan 17 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.12-1
 - Update to 2.12
