@@ -1,7 +1,7 @@
 Name:       xtables-addons
 Summary:    Extensions targets and matches for iptables
 Version:    3.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:    GPLv2 and LGPLv2
 URL:        https://xtables-addons.sourceforge.net
@@ -50,6 +50,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Fri Aug 09 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Tue Apr 02 18:14:09 CET 2019 Robert-André Mauchin <zebob.m@gmail.com> - 3.3-1
 - Release 3.3
 
