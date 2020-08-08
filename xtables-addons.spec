@@ -1,17 +1,14 @@
 Name:       xtables-addons
 Summary:    Extensions targets and matches for iptables
-Version:    3.9
+Version:    3.10
 Release:    1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:    GPLv2 and LGPLv2
-URL:        https://xtables-addons.sourceforge.net
-Source0:    https://dl.sourceforge.net/xtables-addons/Xtables-addons/xtables-addons-%{version}.tar.xz
+URL:        https://inai.de/projects/xtables-addons/
+Source0:    https://inai.de/files/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:    gcc
 BuildRequires:    iptables-devel >= 1.4.5
-BuildRequires:    autoconf
-BuildRequires:    automake
-BuildRequires:    libtool
 Provides:         %{name}-kmod-common = %{version}
 Requires:         %{name}-kmod >= %{version}
 Requires:         ipset >= 6.11
@@ -27,7 +24,6 @@ in the %{name}-kmod package. You must also install the
 
 %prep
 %autosetup
-./autogen.sh
 
 %build
 %configure --without-kbuild
@@ -46,10 +42,16 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_libexecdir}/xtables-addons/
 %{_libdir}/xtables/
 %{_libdir}/*.so.*
+%{_bindir}/xt_geoip_fetch
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
 
 %changelog
+* Sat Aug 08 2020 Leigh Scott <leigh123linux@gmail.com> - 3.10-1
+- Release 3.10
+- Fix URLs
+- Drop autogen build requires
+
 * Wed Apr 22 2020 Leigh Scott <leigh123linux@gmail.com> - 3.9-1
 - Release 3.9
 
