@@ -42,8 +42,6 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_libexecdir}/xtables-addons/
 %{_libdir}/xtables/
 %{_libdir}/*.so.*
-%{_bindir}/xt_geoip_fetch
-%{_bindir}/xt_geoip_fetch_maxmind
 %{_sbindir}/pknlusr
 %{_sbindir}/iptaccount
 %{_mandir}/man?/*
