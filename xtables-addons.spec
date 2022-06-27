@@ -38,7 +38,7 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 
 
 %files
-%doc LICENSE README doc/* geoip
+%doc LICENSE README.rst doc/* geoip
 %{_libexecdir}/xtables-addons/
 %{_libdir}/xtables/
 %{_libdir}/*.so.*
