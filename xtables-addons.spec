@@ -1,7 +1,7 @@
 Name:       xtables-addons
 Summary:    Extensions targets and matches for iptables
 Version:    3.27
-Release:    1%{?dist}
+Release:    2%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:    GPL-2.0-only AND LGPL-2.0-only
 URL:        https://inai.de/projects/xtables-addons/
@@ -49,6 +49,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Wed Jan 29 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 3.27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Leigh Scott <leigh123linux@gmail.com> - 3.27-1
 - Update to 3.27
 
