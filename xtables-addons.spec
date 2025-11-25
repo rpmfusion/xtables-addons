@@ -1,11 +1,11 @@
 Name:       xtables-addons
 Summary:    Extensions targets and matches for iptables
-Version:    3.29
+Version:    3.30
 Release:    1%{?dist}
 # The entire source code is GPLv2 except ACCOUNT/libxt_ACCOUNT_cl.* which is LGPLv2
 License:    GPL-2.0-only AND LGPL-2.0-only
 URL:        https://inai.de/projects/xtables-addons/
-Source0:    https://inai.de/files/%{name}/%{name}-%{version}.tar.xz
+Source0:    https://inai.de/files/%{name}/%{name}-%{version}.tar.zst
 
 BuildRequires:    gcc
 BuildRequires:    iptables-devel >= 1.4.5
@@ -49,6 +49,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,so}
 %{_mandir}/man?/*
 
 %changelog
+* Tue Nov 25 2025 Leigh Scott <leigh123linux@gmail.com> - 3.30-1
+- Update to 3.30
+
 * Thu Aug 21 2025 Leigh Scott <leigh123linux@gmail.com> - 3.29-1
 - Update to 3.29
 
